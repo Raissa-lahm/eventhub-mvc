@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+  <div class="caixa-form">
+    <h1>Entrar</h1>
+    <% if (erro) { %><p class="erro"><%= erro %></p><% } %>
+    <form action="/auth/login" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <label>E-mail</label>
+      <input type="email" name="email" required>
+
+      <label>Senha</label>
+      <input type="password" name="senha" required>
+
+      <button type="submit">Entrar</button>
+    </form>
+    <p>Não tem conta? <a href="/auth/cadastro">Cadastre-se</a></p>
+  </div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventHub</title>
+  <link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body>
+  <header class="topo">
+    <a href="/eventos" class="logo">EventHub</a>
+    <nav>
+      <% if (usuarioLogado) { %>
+        <span>Olá, <%= usuarioLogado.nome %> (<%= usuarioLogado.tipo %>)</span>
+        <% if (usuarioLogado.tipo === 'organizador') { %>
+          <a href="/eventos/novo/formulario">Criar evento</a>
+        <% } %>
+        <a href="/auth/logout">Sair</a>
+      <% } else { %>
+        <a href="/auth/login">Entrar</a>
+        <a href="/auth/cadastro">Cadastrar</a>
+      <% } %>
+    </nav>
+  </header>
+  <main class="conteudo">

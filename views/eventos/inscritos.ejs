@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+  <div class="caixa">
+    <h1>Inscritos em: <%= evento.titulo %></h1>
+    <table class="tabela">
+      <thead>
+        <tr><th>Nome</th><th>E-mail</th><th>Inscrito em</th></tr>
+      </thead>
+      <tbody>
+        <% inscritos.forEach(p => { %>
+          <tr>
+            <td><%= p.nome %></td>
+            <td><%= p.email %></td>
+            <td><%= new Date(p.inscrito_em).toLocaleString('pt-BR') %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% if (inscritos.length === 0) { %><p>Ninguém se inscreveu ainda.</p><% } %>
+    <a href="/eventos/<%= evento.id %>">Voltar ao evento</a>
+  </div>
+<%- include('../partials/footer') %>

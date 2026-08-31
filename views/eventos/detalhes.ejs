@@ -1,0 +1,35 @@
+<%- include('../partials/header') %>
+  <div class="caixa">
+    <h1><%= evento.titulo %></h1>
+    <p><strong>Quando:</strong> <%= new Date(evento.data_evento).toLocaleString('pt-BR') %></p>
+    <p><strong>Local:</strong> <%= evento.local || 'A definir' %></p>
+    <p><strong>Descrição:</strong> <%= evento.descricao || 'Sem descrição.' %></p>
+    <p><strong>Inscritos:</strong> <%= evento.total_inscritos %><% if (evento.vagas > 0) { %> / <%= evento.vagas %> vagas<% } %></p>
+    <p><strong>Organizador:</strong> <%= evento.organizador_nome %></p>
+
+    <% if (usuario && usuario.tipo === 'participante') { %>
+      <% if (jaInscrito) { %>
+        <form action="/eventos/<%= evento.id %>/cancelar-inscricao" method="POST">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit">Cancelar inscrição</button>
+        </form>
+      <% } else { %>
+        <form action="/eventos/<%= evento.id %>/inscrever" method="POST">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit">Inscrever-se</button>
+        </form>
+      <% } %>
+    <% } %>
+
+    <% if (usuario && usuario.tipo === 'organizador' && usuario.id === evento.organizador_id) { %>
+      <div class="acoes-organizador">
+        <a href="/eventos/<%= evento.id %>/editar">Editar</a>
+        <a href="/eventos/<%= evento.id %>/inscritos">Ver inscritos</a>
+        <form action="/eventos/<%= evento.id %>/excluir" method="POST" onsubmit="return confirm('Excluir este evento?')">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit">Excluir</button>
+        </form>
+      </div>
+    <% } %>
+  </div>
+<%- include('../partials/footer') %>

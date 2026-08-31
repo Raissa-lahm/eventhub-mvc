@@ -1,0 +1,26 @@
+<%- include('../partials/header') %>
+  <div class="caixa-form">
+    <h1>Criar conta</h1>
+    <% if (erro) { %><p class="erro"><%= erro %></p><% } %>
+    <form action="/auth/cadastro" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <label>Nome</label>
+      <input type="text" name="nome" required>
+
+      <label>E-mail</label>
+      <input type="email" name="email" required>
+
+      <label>Senha</label>
+      <input type="password" name="senha" required minlength="8">
+
+      <label>Tipo de conta</label>
+      <select name="tipo" required>
+        <option value="participante">Participante</option>
+        <option value="organizador">Organizador</option>
+      </select>
+
+      <button type="submit">Cadastrar</button>
+    </form>
+    <p>Já tem conta? <a href="/auth/login">Entrar</a></p>
+  </div>
+<%- include('../partials/footer') %>

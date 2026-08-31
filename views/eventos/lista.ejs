@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+  <h1>Eventos</h1>
+  <div class="grade-eventos">
+    <% eventos.forEach(evento => { %>
+      <div class="card-evento">
+        <h2><a href="/eventos/<%= evento.id %>"><%= evento.titulo %></a></h2>
+        <p><%= new Date(evento.data_evento).toLocaleString('pt-BR') %></p>
+        <p><%= evento.local || 'Local a definir' %></p>
+        <p><%= evento.total_inscritos %> inscrito(s)<% if (evento.vagas > 0) { %> / <%= evento.vagas %> vagas<% } %></p>
+        <p class="organizador">Organizado por <%= evento.organizador_nome %></p>
+      </div>
+    <% }) %>
+    <% if (eventos.length === 0) { %>
+      <p>Nenhum evento cadastrado ainda.</p>
+    <% } %>
+  </div>
+<%- include('../partials/footer') %>

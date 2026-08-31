@@ -1,0 +1,26 @@
+<%- include('../partials/header') %>
+  <div class="caixa-form">
+    <h1><%= evento ? 'Editar evento' : 'Criar evento' %></h1>
+    <% if (erro) { %><p class="erro"><%= erro %></p><% } %>
+    <form action="<%= evento ? '/eventos/' + evento.id + '/editar' : '/eventos/novo' %>" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <label>Título</label>
+      <input type="text" name="titulo" value="<%= evento ? evento.titulo : '' %>" required>
+
+      <label>Descrição</label>
+      <textarea name="descricao"><%= evento ? evento.descricao : '' %></textarea>
+
+      <label>Local</label>
+      <input type="text" name="local" value="<%= evento ? evento.local : '' %>">
+
+      <label>Data e hora</label>
+      <input type="datetime-local" name="dataEvento" required
+        value="<%= evento ? new Date(evento.data_evento).toISOString().slice(0,16) : '' %>">
+
+      <label>Vagas (0 = ilimitado)</label>
+      <input type="number" name="vagas" min="0" value="<%= evento ? evento.vagas : 0 %>">
+
+      <button type="submit"><%= evento ? 'Salvar alterações' : 'Criar evento' %></button>
+    </form>
+  </div>
+<%- include('../partials/footer') %>

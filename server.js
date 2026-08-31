@@ -13,6 +13,11 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Necessário em produção: o Render fica atrás de um proxy reverso.
+// Sem isso, o Express não reconhece a conexão como HTTPS e o cookie
+// de sessão (marcado como secure em produção) não persiste corretamente.
+app.set('trust proxy', 1);
+
 // Parsers e arquivos estáticos
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
